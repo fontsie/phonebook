@@ -5,6 +5,15 @@
 	<title>Phonebook</title>
 </head>
 <body>
-	
+	<div id="alert"></div>
+	<input id="file" type="file">
+	<div id="load" onclick="readFile();">load</div>
+	<div id="c"></div>
+	<div id="save" onclick="download();">save
+		<a download="phonebook.json" href=""></a>
+	</div>
+	<br>
+	<input id="search" type="text" onkeyup="search();">
+	<div id="result"></div>
 </body>
 </html>
