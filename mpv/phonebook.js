@@ -1,3 +1,11 @@
+var phonebook=[];
+function displayAlert(text){
+	var alert = document.getElementById('alert');
+	alert.style.display = "block";
+	alert.innerHTML = text;
+	window.setTimeout(function(){alert.style.display = "none"}, 3000);
+}
+
 function readFile() {
 	var input = document.getElementById('file');
 	if (!input.files.length) {
