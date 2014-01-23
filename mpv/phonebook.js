@@ -43,7 +43,7 @@ function readFile() {
 			}
 			if(k.length>0){
 				for (var i = k.length - 1; i >= 0; i--) {
-					removeRecord(k[i]);
+					removeRecord(k[i], true);
 				}
 				displayAlert("Error: Phonebook loaded, but "+k.length+" record/s have been ignored because they are not valid");
 			}
@@ -65,9 +65,13 @@ function checkNumber(n){
 	return regexp.test(n);
 }
 
-function removeRecord(i){
+function removeRecord(i,silent){
+	silent = silent || false;
 	phonebook.splice(i,1);
 	if (typeof(Storage) !== 'undefined') {
 		localStorage.setItem('save', 'false');
+	}
+	if(!silent){
+		displayAlert("Record delete");
 	}
 }
