@@ -56,3 +56,10 @@ function checkNumber(n){
 	var regexp = /^\+\d{1,3} \d+ \d{6,}$/;
 	return regexp.test(n);
 }
+
+function removeRecord(i){
+	phonebook.splice(i,1);
+	if (typeof(Storage) !== 'undefined') {
+		localStorage.setItem('save', 'false');
+	}
+}
