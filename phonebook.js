@@ -1,17 +1,14 @@
 function Phonebook(){
-	var record = [];
+	this.records = [];
 }
 
-Phonebook.prototype.readFile = function(element,replace) {
+Phonebook.prototype.readFile = function(element,callback) {
 	var input = element;
 	if (!input.files.length) {
-		displayAlert('Please select a file!');
+		this.displayAlert('Please select a file!');
 		return;
 	}
-	if(replace){
-		this.record = [];
-	}
-
+	var that = this;
 	var file = input.files[0];
 	input.value = "";
 	var reader = new FileReader();
@@ -21,49 +18,51 @@ Phonebook.prototype.readFile = function(element,replace) {
 			try{
 				var pb = JSON.parse(json);
 			}catch(e){
-				displayAlert("File is not valid");
+				that.displayAlert("File is not valid");
 				return;
 			}
 			var l = pb.length;
 			var k = 0;
 			for (var i = 0; i < l; i++) {
-				if (isDuplicate(pb[i])){
+				if (that.isDuplicate(pb[i])){
 					k++
 					continue;
 				}
-				if (!pb[i].hasOwnProperty('name') || !checkName(pb[i].name)){
+				if (!pb[i].hasOwnProperty('name') || !that.checkName(pb[i].name)){
 					k++;
 					continue;
 				}
-				if (!pb[i].hasOwnProperty('surname') || !checkName(pb[i].surname) ){
+				if (!pb[i].hasOwnProperty('surname') || !that.checkName(pb[i].surname) ){
 					k++;
 					continue;
 				}	
-				if (!pb[i].hasOwnProperty('number') || !checkNumber(pb[i].number)){
+				if (!pb[i].hasOwnProperty('number') || !that.checkNumber(pb[i].number)){
 					k++;
 					continue;
 				}
-				this.record.push(pb[i]);
+				pb[i].name = pb[i].name.trim();
+				pb[i].surname = pb[i].surname.trim();
+				pb[i].number = pb[i].number.trim();
+				that.records.push(pb[i]);
 			}
 			if (k > 0){
-				displayAlert("Error: Phonebook loaded, but "+k+" record/s have been ignored because they are not valid");
+				that.displayAlert("Error: Phonebook loaded, but "+k+" record/s have been ignored because they are not valid");
 			}
 			else {
-				displayAlert("Phonebook loaded successfully!");
+				that.displayAlert("Phonebook loaded successfully!");
 			}
-			//search();
+			callback();
 		}
 	}
 	reader.readAsBinaryString(file);
 }
 
 Phonebook.prototype.search = function(text) {
-	function search(){
-	var search = document.getElementById('search').value.trim() + "£";
+	var search = text.trim() + "£";
 	search = search.replace(/surname:/i,"£2");
 	search = search.replace(/name:/i,"£1");
 	search = search.replace(/number:/i,"£3");		
-	var l = phonebook.length;
+	var l = this.records.length;
 	var result = [];
 	for (var i = 0; i < l; i++){
 		var case1=/£1/.test(search);
@@ -76,36 +75,36 @@ Phonebook.prototype.search = function(text) {
 			if(case1){
 				var r = search.match(/£1(.*?) *£/)[1].trim();
 				var regexp = new RegExp(r,"i");
-				if(regexp.test(phonebook[i].name)){
+				if(regexp.test(this.records[i].name)){
 					match1 = true;
 				}
 			}
 			if(case2) {
 				var r = search.match(/£2(.*?) *£/)[1].trim();
 				var regexp = new RegExp(r,"i");
-				if(regexp.test(phonebook[i].surname)){
+				if(regexp.test(this.records[i].surname)){
 					match2 = true;
 				}
 			}
 			if(case3) {
 				var r = search.match(/£3(.*?) *£/)[1].trim();
 				var regexp = new RegExp(r,"i");
-				if(regexp.test(phonebook[i].number)){
+				if(regexp.test(this.records[i].number)){
 					match3 = true;
 				}
 			}
 			if((case1 == match1)&&(case2 == match2)&&(case3 == match3)){
 				var temp = {
-					"name" : phonebook[i].name,
-					"surname" : phonebook[i].surname,
-					"number" : phonebook[i].number,
+					"name" : this.records[i].name,
+					"surname" : this.records[i].surname,
+					"number" : this.records[i].number,
 					"id" : i
 				}
 				result.push(temp);
 			}
 		} else {
 			var regexp = search.slice(0,-1).split(" ");
-			var text = phonebook[i].name + " " + phonebook[i].surname + " " + phonebook[i].number;
+			var text = this.records[i].name + " " + this.records[i].surname + " " + this.records[i].number;
 			var match = true;
 			for (var j = 0; j < regexp.length; j++) {
 				regexp[j] = new RegExp(regexp[j], "i");
@@ -116,16 +115,102 @@ Phonebook.prototype.search = function(text) {
 			}	
 			if(match){
 				var temp = {
-					"name" : phonebook[i].name,
-					"surname" : phonebook[i].surname,
-					"number" : phonebook[i].number,
+					"name" : this.records[i].name,
+					"surname" : this.records[i].surname,
+					"number" : this.records[i].number,
 					"id" : i
 				}
 				result.push(temp);						
 			}
 		}	
 	}
-	//toHtml(result);
 	return result;
 }
+
+Phonebook.prototype.displayAlert = function(text){
+	try {
+		var alert = document.getElementById('alert');
+		alert.style.display = "block";
+		alert.innerHTML = text;
+		window.setTimeout(function(){alert.style.display = "none"}, 3000);
+	} catch(e){
+		console.log(e+" Element 'alert' doesn't exist");
+	}
+}
+
+Phonebook.prototype.isDuplicate = function(e){
+	bool = false;
+	for (var i = 0; i < this.records.length; i++) {
+		if(this.records[i].name == e.name && this.records[i].surname == e.surname && this.records[i].number == e.number){
+			bool = true;
+			break;
+		} 
+	}
+	return bool;
+}
+
+Phonebook.prototype.checkName = function(name) {
+	var regexp = /^[\w ]+$/;
+	return regexp.test(name);
+}
+
+Phonebook.prototype.checkNumber = function(n) {
+	var regexp = /^\+\d{1,3} \d+ \d{6,}$/;
+	return regexp.test(n);
+}
+
+Phonebook.prototype.clear = function() {
+	this.records=[];
+	return;
+}
+
+Phonebook.prototype.toString = function() {
+	if(this.records.length) {
+		return JSON.stringify(this.records);
+	} else {
+		return false;
+	}
+}
+
+Phonebook.prototype.newRecord = function(name,surname,number) {
+	if(this.checkName(name) && this.checkName(surname) && this.checkNumber(number)){
+		var e = {
+			"name" : name,
+			"surname" : surname,
+			"number" : number
+		};
+		if(this.isDuplicate(e)){
+			this.displayAlert("This record already exists");
+		} else {
+			this.records.push(e);
+			this.displayAlert("New record added");
+			return true;
+		}
+	} else {
+		return false;
+	}
+}
+
+Phonebook.prototype.editRecord = function(i,name,surname,number) {
+	if(this.checkName(name) && this.checkName(surname) && this.checkNumber(number)){
+		var e = {
+			"name" : name,
+			"surname" : surname,
+			"number" : number
+		};
+		if(this.isDuplicate(e)){
+			return 1;
+		} else {
+			this.records[i].name = name;
+			this.records[i].surname = surname;
+			this.records[i].number = number;
+			return 2;
+		}
+	} else {
+		return false;
+	}
+}
+
+Phonebook.prototype.removeRecord = function(i) {
+	this.records.splice(i,1);
 };
