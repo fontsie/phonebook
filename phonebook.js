@@ -80,6 +80,7 @@ Phonebook.prototype.search = function(text) {
 			var match3 = false;
 			if(case1){
 				var r = search.match(/£1(.*?) *£/)[1].trim();
+				r = r.split("").join(".*?");
 				var regexp = new RegExp(r,"i");
 				if(regexp.test(this.records[i].name)){
 					match1 = true;
@@ -87,6 +88,7 @@ Phonebook.prototype.search = function(text) {
 			}
 			if(case2) {
 				var r = search.match(/£2(.*?) *£/)[1].trim();
+				r = r.split("").join(".*?");
 				var regexp = new RegExp(r,"i");
 				if(regexp.test(this.records[i].surname)){
 					match2 = true;
@@ -94,6 +96,7 @@ Phonebook.prototype.search = function(text) {
 			}
 			if(case3) {
 				var r = search.match(/£3(.*?) *£/)[1].trim();
+				r = r.split("").join(".*?");
 				var regexp = new RegExp(r,"i");
 				if(regexp.test(this.records[i].number)){
 					match3 = true;
@@ -113,6 +116,7 @@ Phonebook.prototype.search = function(text) {
 			var text = this.records[i].name + " " + this.records[i].surname + " " + this.records[i].number;
 			var match = true;
 			for (var j = 0; j < regexp.length; j++) {
+				regexp[j] = regexp[j].split("").join(".*?");
 				regexp[j] = new RegExp(regexp[j], "i");
 				if(!regexp[j].test(text)){
 					match = false;
