@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Phonebook</title>
+	<script type="text/javascript" src="phonebook.js"></script>
+	<script type="text/javascript" sec="app.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div id="alert"></div>
+	<aside>
+		<input id="file" type="file">
+		<div id="replace" onclick="readFile(true);">Replace</div>
+		<div id="import" onclick="readFile();">Import</div>
+		<!-- div id="c"></div-->
+		<div id="save" onclick="download();">Export
+			<a download="phonebook.json" href=""></a>
+		</div>
+	</aside>
+	<section>
+		<input id="search" type="text" onkeyup="search();">
+		<br>
+		<div id="new-record"></div>
+		<div id="new" onclick="newHtml();">New</div>
+		<div id="result"></div>
+	</section>
+</body>
+</html>
