@@ -1,5 +1,22 @@
 function Phonebook(){
 	this.records = [];
+	this.loadToLocalStorage();
+}
+
+Phonebook.prototype.validate = function(el) {
+	if (this.isDuplicate(el)){
+		return false;
+	}
+	if (!el.hasOwnProperty('name') || !this.checkName(el.name)){
+		return false;
+	}
+	if (!el.hasOwnProperty('surname') || !this.checkName(el.surname) ){
+		return false;
+	}	
+	if (!el.hasOwnProperty('number') || !this.checkNumber(el.number)){
+		return false;
+	}
+	return true;
 }
 
 Phonebook.prototype.readFile = function(element,callback) {
@@ -24,20 +41,8 @@ Phonebook.prototype.readFile = function(element,callback) {
 			var l = pb.length;
 			var k = 0;
 			for (var i = 0; i < l; i++) {
-				if (that.isDuplicate(pb[i])){
+				if (!that.validate(pb[i])){
 					k++
-					continue;
-				}
-				if (!pb[i].hasOwnProperty('name') || !that.checkName(pb[i].name)){
-					k++;
-					continue;
-				}
-				if (!pb[i].hasOwnProperty('surname') || !that.checkName(pb[i].surname) ){
-					k++;
-					continue;
-				}	
-				if (!pb[i].hasOwnProperty('number') || !that.checkNumber(pb[i].number)){
-					k++;
 					continue;
 				}
 				pb[i].name = pb[i].name.trim();
@@ -51,6 +56,7 @@ Phonebook.prototype.readFile = function(element,callback) {
 			else {
 				that.displayAlert("Phonebook loaded successfully!");
 			}
+			that.saveInLocalStorage();
 			callback();
 		}
 	}
@@ -161,6 +167,7 @@ Phonebook.prototype.checkNumber = function(n) {
 
 Phonebook.prototype.clear = function() {
 	this.records=[];
+	this.saveInLocalStorage();
 	return;
 }
 
@@ -184,6 +191,7 @@ Phonebook.prototype.newRecord = function(name,surname,number) {
 		} else {
 			this.records.push(e);
 			this.displayAlert("New record added");
+			this.saveInLocalStorage();
 			return true;
 		}
 	} else {
@@ -204,6 +212,7 @@ Phonebook.prototype.editRecord = function(i,name,surname,number) {
 			this.records[i].name = name;
 			this.records[i].surname = surname;
 			this.records[i].number = number;
+			this.saveInLocalStorage();
 			return 2;
 		}
 	} else {
@@ -213,4 +222,34 @@ Phonebook.prototype.editRecord = function(i,name,surname,number) {
 
 Phonebook.prototype.removeRecord = function(i) {
 	this.records.splice(i,1);
-};
+	this.saveInLocalStorage();
+}
+
+Phonebook.prototype.saveInLocalStorage = function() {
+	if (typeof(Storage) !== 'undefined') {
+		var json = this.toString();
+		var local = localStorage.getItem('phonebook');
+		if (local != json){
+			localStorage.setItem('phonebook', json);
+		}
+	}
+}
+
+Phonebook.prototype.loadToLocalStorage = function() {
+	if (typeof(Storage) !== 'undefined') {
+		var local = JSON.parse(localStorage.getItem('phonebook'));
+		if (local){
+			var l = local.length;
+			for (var i = 0; i < l; i++) {
+				if (!this.validate(local[i])){
+					continue;
+				}
+				local[i].name = local[i].name.trim();
+				local[i].surname = local[i].surname.trim();
+				local[i].number = local[i].number.trim();
+				this.records.push(local[i]);
+			}
+			alert("Phonebook load from localStorage");
+		}
+	}
+}
