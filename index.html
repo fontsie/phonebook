@@ -4,15 +4,15 @@
 	<meta charset="UTF-8">
 	<title>Phonebook</title>
 	<script type="text/javascript" src="phonebook.js"></script>
-	<script type="text/javascript" sec="app.js"></script>
+	<script type="text/javascript" src="app.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div id="alert"></div>
 	<aside>
 		<input id="file" type="file">
-		<div id="replace" onclick="replace();">Replace</div>
-		<div id="import" onclick="import();">Import</div>
+		<div id="replace" onclick="replacePhonebook();">Replace</div>
+		<div id="import" onclick="importPhonebook();">Import</div>
 		<!-- div id="c"></div-->
 		<div id="save" onclick="download();">Export
 			<a download="phonebook.json" href=""></a>
