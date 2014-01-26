@@ -9,21 +9,25 @@
 </head>
 <body>
 	<div id="alert"></div>
+	<header>
+		<div id="tip">Tip<p>Tags <br>"name:" search by name <br>"surname:" search by surname <br>"number:" search by number</p></div>
+		<div id="center">
+			<input id="search" type="text" onkeyup="search();">
+		</div>
+		<div id="new" onclick="newHtml();">New</div>
+	</header>
+	<section>
+		<div id="new-record"></div>
+		<div id="result"></div>
+	</section>
 	<aside>
 		<input id="file" type="file">
 		<div id="replace" onclick="replacePhonebook();">Replace</div>
+		<p>or</p>
 		<div id="import" onclick="importPhonebook();">Import</div>
-		<!-- div id="c"></div-->
 		<div id="save" onclick="download();">Export
 			<a download="phonebook.json" href=""></a>
 		</div>
 	</aside>
-	<section>
-		<input id="search" type="text" onkeyup="search();">
-		<br>
-		<div id="new-record"></div>
-		<div id="new" onclick="newHtml();">New</div>
-		<div id="result"></div>
-	</section>
 </body>
 </html>
