@@ -29,9 +29,9 @@ function toHtml(obj){
 	var html = '';
 	for (var i = 0; i < obj.length; i++) {
 		html += '<div id="r'+obj[i].id+'" class="record">';
-		html += '<div class="name">name:'+obj[i].name+'</div>';
-		html += '<div class="surname">surname:'+obj[i].surname+'</div>';
-		html += '<div class="number">number:'+obj[i].number+'</div>';
+		html += 'name:<div class="name">'+obj[i].name+'</div>';
+		html += 'surname:<div class="surname">'+obj[i].surname+'</div>';
+		html += 'number:<div class="number">'+obj[i].number+'</div>';
 		html += '<div class="edit" onclick="editHtml('+obj[i].id+')">Edit</div><div class="delete" onclick="removeRecord('+obj[i].id+')">Delete</div>'
 		html += '</div>';
 	}
@@ -122,9 +122,9 @@ function editRecord(i){
 
 function cancelEdit(i){
 	var record = document.getElementById('r'+i);
-	var html = '<div class="name">name:'+phonebook.records[i].name+'</div>';
-	html += '<div class="surname">surname:'+phonebook.records[i].surname+'</div>';
-	html += '<div class="number">number:'+phonebook.records[i].number+'</div>';
+	var html = 'name:<div class="name">'+phonebook.records[i].name+'</div>';
+	html += 'surname:<div class="surname">'+phonebook.records[i].surname+'</div>';
+	html += 'number:<div class="number">'+phonebook.records[i].number+'</div>';
 	html += '<div class="edit" onclick="editHtml('+i+')">Edit</div><div class="delete" onclick="removeRecord('+i+')">Delete</div>'
 	record.innerHTML = html;
 }
