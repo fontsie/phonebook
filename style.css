@@ -1,0 +1,149 @@
+html,body {
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+	font-size: 16px;
+}
+
+#alert{
+	z-index: 100;
+	position: fixed;
+	top: 55px;
+	background-color: #f50;
+	padding: 5px;
+	display: none;
+}
+
+header, aside {
+	min-width: 802px;
+	background-color: #222;
+	position: fixed;
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	z-index: 1;
+}
+
+header {
+	top: 0;
+}
+
+#tip{
+	width: 200px;
+}
+
+#tip > p {
+	display: none;
+}
+
+#tip:hover > p {
+	display: block;
+	margin: 0;
+	background-color: #333;
+	font-size: 14px;
+}
+
+#center{
+	position: absolute;
+	left: 210px;
+	right: 210px;
+	padding: 0 10px;
+	
+}
+
+#search {
+	background-color: inherit;
+	width: 100%;
+	border: 0;
+	font-size: 20px;
+	color: #fff;
+}
+
+aside {
+	bottom: 0;
+}
+
+header > *, aside > *, #new-cancel, .edit, .delete {
+	background-color: #333;
+	position: relative;
+	float: left;
+	height: 40px;
+	margin: 5px;
+	line-height: 40px;
+}
+
+aside > input {
+	line-height: normal;
+	padding: 10px 0;
+	height: 20px;
+}
+
+aside > p {
+	background-color: transparent;
+}
+
+#import, #replace {
+	width: 150px;
+}
+
+#save, #new {
+	float: right;
+	width: 200px;
+}
+
+#import:hover, #replace:hover, #save:hover, #new:hover, #tip:hover,
+#new-cancel:hover, .edit:hover, .delete:hover {
+	background-color: #f50;
+}
+
+section{
+	position: absolute;
+	top: 50px;
+	width: 100%;
+	min-width: 802px;
+	text-align: center;
+}
+
+#new-record, .record{
+	margin: 1px auto;
+	min-width: 802px;
+	width: 100%;
+	background-color: #ddd;
+	line-height: 50px;
+}
+
+#new-record > input, .record input {
+	border: none;
+	background-color: #fff;
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 5px;
+}
+
+#new-cancel {
+	color: #fff;
+	width: 200px;
+	float: right;
+}
+
+.record > * {
+	display: inline-block;
+}
+
+.edit, .delete {
+	width: 95px;
+	float: right;
+	color: #fff;
+}
+
+.name, .surname, .number {
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0 5px;
+	text-align: left;
+	white-space: nowrap;
+	font-weight: bold;
+}
