@@ -1,16 +1,22 @@
 var phonebook = new Phonebook();
 
+function dontWorry(bool){
+	if (typeof(Storage) !== 'undefined') {
+		localStorage.setItem('save', bool);
+	}
+}
+
 function replacePhonebook(){
 	var e = document.getElementById('file');
 	phonebook.clear();
 	phonebook.readFile(e,search);
-	localStorage.setItem('save', "true");
+	dontWorry("true");
 }
 
 function importPhonebook(){
 	var e = document.getElementById('file');
 	phonebook.readFile(e,search);
-	localStorage.setItem('save', "false");
+	dontWorry("false");
 }
 
 function search(){
@@ -41,16 +47,16 @@ function download(){
 		var a = document.querySelector('#save > a');
 		a.setAttribute('href', 'data:text/plain;charset=utf-8,'+ encodeURIComponent(json));
 		a.click();
-		localStorage.setItem('save', "true");
+		dontWorry("true");
 	}else{
 		phonebook.displayAlert("No data");
 	}
 }
 
 function newHtml(){
-	var html ='<input type="text" id="edit-name"/>';
-	html +='<input type="text" id="edit-surname"/>';
-	html +='<input type="text" id="edit-number"/>';
+	var html ='name:<input type="text" id="edit-name"/>';
+	html +='surname:<input type="text" id="edit-surname"/>';
+	html +='number:<input type="text" id="edit-number"/>';
 	html +='<div id="new-cancel" onclick="newCancel();">Cancel</div>'
 	document.getElementById("new-record").innerHTML = html;
 	var n = document.getElementById('new');
@@ -66,7 +72,7 @@ function newRecord(){
 		document.getElementById("new-record").innerHTML = "";
 		document.getElementById('new').setAttribute("onclick", "newHtml();");
 		phonebook.displayAlert("New record added!")
-		localStorage.setItem('save', "false");
+		dontWorry("false");
 		newCancel();
 		search();
 	} else {
@@ -106,7 +112,7 @@ function editRecord(i){
 			phonebook.displayAlert("This record already exists");
 		} else {
 			phonebook.displayAlert("Record update!");
-			localStorage.setItem('save', "false");
+			dontWorry("false");
 			cancelEdit(i);
 		}
 	} else {
@@ -126,7 +132,7 @@ function cancelEdit(i){
 function removeRecord(i){
 	phonebook.removeRecord(i);
 	if (typeof(Storage) !== 'undefined') {
-		localStorage.setItem('save', 'false');
+		dontWorry('false');
 	}
 	phonebook.displayAlert("Record delete");
 	search();
