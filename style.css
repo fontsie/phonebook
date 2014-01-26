@@ -147,3 +147,14 @@ section{
 	white-space: nowrap;
 	font-weight: bold;
 }
+
+footer {
+	height: 10px;
+	background-color: #fff;
+	color: #333;
+	font-size: 9px;
+	position: fixed;
+	bottom: 50px;
+	width: 100%;
+	text-align: right;
+}
