@@ -24,11 +24,11 @@ Features
 
 -	search:
 	You can search a phonebook's record. The result will show while you're tiping. You can write the words to filter in any order. For example, the record that we are looking for is "Pietro Di Bello", this match with "Pietro Di Bello", but also with "Di Bello Pietro", or "Di Pietro Bello" ecc.
-	You can also write only a part of the word: "D Pie ll". Or without spaces "PietroDiBello", in this case the order is important (NameSurnameNumber).
-	There are 3 tags for a specific research, "name:" for a search by name, "surname:" for surname and "number:" for number. Yuo can write more of one tag, and in the order you want. 
+	You can also write only a part of the word: "D Pie ll". Or without spaces "PietroDiBello", in this case is important respect the order (NameSurnameNumber).
+	There are 3 tags for a specific research, "name:" for a search by name, "surname:" for surname and "number:" for number. Yuo can write more of one tag, and in the order you want (surname: Fei name: Christian). 
 			
--	add/edit/delete
+-	add/edit/delete:
 	With the specific buttons you can modify your phonebook. All changes will be saved in the Local Storage.
 
--	backup
+-	backup:
 	Anytime you can download a json file with all records. If you've made changes and try to close the browser whitout a backup you will be asked a confirm.
