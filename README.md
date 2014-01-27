@@ -4,7 +4,8 @@ Phonebook
 Exercise: telephone directory web application for XPeppers.
 
 My app is entirely written in javascript, there is nothing to configure, but take care to run it in a browser that supports html5 with js active.
-Online [here](http://fontsie.github.io/phonebook/)
+
+Online [here](http://fontsie.github.io/phonebook/).
 
 Files
 ----
