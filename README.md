@@ -23,7 +23,7 @@ Features
 	If your browser support Local Storage the data will be load at the start from there.
 
 -	search:
-	You can search a phonebook's record. You will get the result while you're tiping. You can write words in any order. For example, let's say the record that we're looking for is "Pietro Di Bello": it will match with "Pietro Di Bello", but also with "Di Bello Pietro", or "Di Pietro Bello", and so on...
+	You can search a phonebook's record. You will get the result while you're typing. You can write words in any order. For example, let's say the record that we're looking for is "Pietro Di Bello": it will match with "Pietro Di Bello", but also with "Di Bello Pietro", or "Di Pietro Bello", and so on...
 	You can also write only a part of a word: "D Pie ll"; or without spaces: "PietroDiBello", but in this particular case you'll have to write the words in this specific order.
 	There are 3 tags for a specific search, "name:" for a search by name, "surname:" for surname and "number:" for number. You can use any tags you want, in the order you want (surname: Fei name: Christian). 
 			
@@ -31,4 +31,4 @@ Features
 	With the specific buttons you can modify your phonebook. All changes will be saved in the Local Storage.
 
 -	backup:
-	You can download a json file with all records at any time. If you made changes and then try to close the browser whitout a backup, you will be asked a confirm.
+	You can download a json file with all records at any time. If you made changes and then try to close the browser without a backup, you will be asked a confirm.
